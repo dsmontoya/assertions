@@ -22,6 +22,7 @@ func (this *AssertionsFixture) TestShouldEqual() {
 	this.fail(so("hi", ShouldEqual, "bye"), "bye|hi|Expected: 'bye' Actual: 'hi' (Should be equal)")
 
 	this.pass(so(42, ShouldEqual, uint(42)))
+	this.pass(so((interface{})(nil), ShouldEqual, (interface{})(nil)))
 
 	this.fail(so(Thing1{"hi"}, ShouldEqual, Thing1{}), "{}|{hi}|Expected: '{}' Actual: '{hi}' (Should be equal)")
 	this.fail(so(Thing1{"hi"}, ShouldEqual, Thing1{"hi"}), "{hi}|{hi}|Expected: '{hi}' Actual: '{hi}' (Should be equal)")

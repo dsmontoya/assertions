@@ -44,7 +44,8 @@ func (this *equalityMethodSpecification) IsSatisfied() bool {
 
 func (this *equalityMethodSpecification) bothAreSameType() bool {
 	this.aType = reflect.TypeOf(this.a)
-	if this.aType.Kind() == reflect.Ptr {
+	aValue := reflect.ValueOf(this.a)
+	if aValue.Kind() == reflect.Ptr {
 		this.aType = this.aType.Elem()
 	}
 	this.bType = reflect.TypeOf(this.b)
@@ -52,7 +53,9 @@ func (this *equalityMethodSpecification) bothAreSameType() bool {
 }
 func (this *equalityMethodSpecification) typeHasEqualMethod() bool {
 	aInstance := reflect.ValueOf(this.a)
-	this.equalMethod = aInstance.MethodByName("Equal")
+	if aInstance.IsValid() {
+		this.equalMethod = aInstance.MethodByName("Equal")
+	}
 	return this.equalMethod != reflect.Value{}
 }
 
